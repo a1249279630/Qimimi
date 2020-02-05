@@ -19,7 +19,7 @@ private UserService userService;
         if(isEmail.isEmail(addUserRequest.getEmail())){
             Integer integer = userService.RegisterUser(addUserRequest,random);
             if(integer==1){
-                return "注册成功,请在邮箱查看激活码";
+                return "注册成功";
             }else if(integer==-1){
                 return "注册失败，用户名已被占用，请重新输入";
             }else if(integer==0) {

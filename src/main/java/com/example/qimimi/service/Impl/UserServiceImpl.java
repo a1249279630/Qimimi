@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
         try {
             if(random==null||random.equals("")){
                 randomtemp=RandomCode.RandomSafetyCode();
-                MailUtil.sendEmail(aur.getEmail(), aur.getNickName()+randomtemp);
+                MailUtil.sendEmail(aur.getEmail(), randomtemp,aur);
                 return 0;
             }else {
                 if(!random.equals(randomtemp)){

@@ -1,4 +1,7 @@
 package com.example.qimimi.utils;
+import com.example.qimimi.pojo.User;
+import com.example.qimimi.request.AddUserRequest;
+import com.example.qimimi.service.Impl.UserServiceImpl;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 
@@ -7,7 +10,7 @@ import org.apache.commons.mail.HtmlEmail;
  */
 public class MailUtil {
     //邮箱验证码
-    public static void sendEmail(String emailaddress,String code){
+    public static void sendEmail(String emailaddress, String code, AddUserRequest aur){
         // 不要使用SimpleEmail,会出现乱码问题
         HtmlEmail email = new HtmlEmail();
         try {
@@ -27,7 +30,7 @@ public class MailUtil {
             email.setAuthentication("15989566325@163.com", "gyfitedu");
             email.setSubject("课程表注册验证码");
             // 要发送的信息，由于使用了HtmlEmail，可以在邮件内容中使用HTML标签
-            email.setMsg("：欢迎注册，您的验证码为："+code);
+            email.setMsg(aur.getName()+"：欢迎注册，您的验证码为："+code);
             // 发送
             email.send();
 
