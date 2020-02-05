@@ -2,6 +2,7 @@ package com.example.qimimi.controller;
 
 import com.example.qimimi.pojo.User;
 import com.example.qimimi.request.AddUserRequest;
+import com.example.qimimi.request.UpdateUserRequest;
 import com.example.qimimi.service.UserService;
 import com.example.qimimi.utils.IsEmail;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ private UserService userService;
         }
     }
 
-    @PostMapping(value = "LoginUser/By/UsernameAndPassword")
+    @PostMapping(value = "LoginUser/By/Nike_NameAndPassword")
     public String LoginUser(String username,String password){
         User user = userService.LoginUser(username, password);
         if(user==null||user.equals("")){
@@ -52,4 +53,9 @@ private UserService userService;
             return ""+user.toString();
         }
     }
+
+    @PostMapping(value = "UpdateUser/By/Nike_Name")
+    public Integer UpdateUserByNickName(@RequestBody UpdateUserRequest updateUserRequest,String nikename){
+        return userService.UpdateUserByNickName(updateUserRequest,nikename);
+        }
 }

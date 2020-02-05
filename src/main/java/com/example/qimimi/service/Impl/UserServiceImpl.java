@@ -3,6 +3,7 @@ package com.example.qimimi.service.Impl;
 import com.example.qimimi.dao.UserDao;
 import com.example.qimimi.pojo.User;
 import com.example.qimimi.request.AddUserRequest;
+import com.example.qimimi.request.UpdateUserRequest;
 import com.example.qimimi.service.UserService;
 import com.example.qimimi.utils.MailUtil;
 import com.example.qimimi.utils.RandomCode;
@@ -70,6 +71,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User LoginUser(String username, String password) {
         return userDao.LoginUser(username, password);
+    }
+
+    @Override
+    public Integer UpdateUserByNickName(UpdateUserRequest uur,String nikename) {
+        List<User> userByNickName = userDao.findUserByNickName(nikename);
+        User user = userByNickName.get(0);
+        user.setPhone(uur.getPhone());
+        user.setEmail(uur.getEmail());
+        return userDao.UpdateUserById(user);
     }
 
 

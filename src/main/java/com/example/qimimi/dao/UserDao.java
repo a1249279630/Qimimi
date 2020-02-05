@@ -31,4 +31,8 @@ public class UserDao {
     public User LoginUser(String username, String password) {
         return userMapper.LoginUser(username,password);
     }
+
+    public Integer UpdateUserById(User user) {
+        return userMapper.updateByPrimaryKeySelective(user);
+    }
 }
