@@ -62,7 +62,7 @@
         <!-- 指定数据库表 -->
 
 
-        <table tableName="t_user" domainObjectName="User">
+        <table tableName="t_class" domainObjectName="Class">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
 

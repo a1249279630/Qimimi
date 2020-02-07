@@ -29,4 +29,6 @@ public interface ClassMapper {
     int updateByPrimaryKeySelective(Class record);
 
     int updateByPrimaryKey(Class record);
+
+    List<Class> FindCurrentWeekAllClass(@Param("currentweek")Integer currentweek);
 }

@@ -11,17 +11,22 @@ public class Class {
 
     private String location;
 
-    private Date startDate;
+    private Integer startWeek;
 
-    private Date endDate;
+    private Integer endWeek;
 
     private Long testId;
 
-    private Integer num;
+    private Integer startNum;
+
+    private Integer endNum;
 
     private String color;
 
-    private String week;
+    private String day;
+
+    private Date creatTime;
+
 
     public Long getId() {
         return id;
@@ -55,20 +60,20 @@ public class Class {
         this.location = location == null ? null : location.trim();
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Integer getStartWeek() {
+        return startWeek;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setStartWeek(Integer startWeek) {
+        this.startWeek = startWeek;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public Integer getEndWeek() {
+        return endWeek;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setEndWeek(Integer endWeek) {
+        this.endWeek = endWeek;
     }
 
     public Long getTestId() {
@@ -79,12 +84,12 @@ public class Class {
         this.testId = testId;
     }
 
-    public Integer getNum() {
-        return num;
+    public Integer getStartNum() {
+        return startNum;
     }
 
-    public void setNum(Integer num) {
-        this.num = num;
+    public void setStartNum(Integer startNum) {
+        this.startNum = startNum;
     }
 
     public String getColor() {
@@ -95,11 +100,27 @@ public class Class {
         this.color = color == null ? null : color.trim();
     }
 
-    public String getWeek() {
-        return week;
+    public String getDay() {
+        return day;
     }
 
-    public void setWeek(String week) {
-        this.week = week == null ? null : week.trim();
+    public void setDay(String day) {
+        this.day = day == null ? null : day.trim();
+    }
+
+    public Date getCreatTime() {
+        return creatTime;
+    }
+
+    public void setCreatTime(Date creatTime) {
+        this.creatTime = creatTime;
+    }
+
+    public Integer getEndNum() {
+        return endNum;
+    }
+
+    public void setEndNum(Integer endNum) {
+        this.endNum = endNum;
     }
 }
