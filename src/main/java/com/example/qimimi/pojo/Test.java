@@ -9,7 +9,7 @@ public class Test {
 
     private String location;
 
-    private Date date;
+    private String date;
 
     private Long clock;
 
@@ -37,11 +37,11 @@ public class Test {
         this.location = location == null ? null : location.trim();
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
