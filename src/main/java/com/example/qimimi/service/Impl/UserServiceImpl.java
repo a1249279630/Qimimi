@@ -45,7 +45,6 @@ public class UserServiceImpl implements UserService {
                     user.setName(aur.getName());
                     user.setCreatTime(new Date());
                     user.setRandomCode(random);
-
                     userDao.AddUser(user);
                     randomtemp="";
                     return  1;

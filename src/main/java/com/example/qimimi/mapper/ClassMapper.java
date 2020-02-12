@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface ClassMapper {
+//
     long countByExample(ClassExample example);
 
     int deleteByExample(ClassExample example);
@@ -29,4 +30,8 @@ public interface ClassMapper {
     int updateByPrimaryKeySelective(Class record);
 
     int updateByPrimaryKey(Class record);
+
+    List<Class> FindCurrentWeekAllClass(@Param("currentweek")Integer currentweek);
+
+    Integer ExcelUpload(List<Class> list);
 }

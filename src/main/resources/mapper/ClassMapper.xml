@@ -6,12 +6,14 @@
     <result column="teacher" jdbcType="VARCHAR" property="teacher" />
     <result column="lesson_name" jdbcType="VARCHAR" property="lessonName" />
     <result column="location" jdbcType="VARCHAR" property="location" />
-    <result column="start_date" jdbcType="DATE" property="startDate" />
-    <result column="end_date" jdbcType="DATE" property="endDate" />
+    <result column="start_week" jdbcType="INTEGER" property="startWeek" />
+    <result column="end_week" jdbcType="INTEGER" property="endWeek" />
     <result column="test_id" jdbcType="BIGINT" property="testId" />
-    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="start_num" jdbcType="INTEGER" property="startNum" />
     <result column="color" jdbcType="VARCHAR" property="color" />
-    <result column="week" jdbcType="VARCHAR" property="week" />
+    <result column="day" jdbcType="VARCHAR" property="day" />
+    <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime" />
+    <result column="end_num" jdbcType="INTEGER" property="endNum" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,7 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, teacher, lesson_name, location, start_date, end_date, test_id, num, color, week
+    id, teacher, lesson_name, location, start_week, end_week, test_id, start_num, color, 
+    day, creat_time, end_num
   </sql>
   <select id="selectByExample" parameterType="com.example.qimimi.pojo.ClassExample" resultMap="BaseResultMap">
     select
@@ -94,6 +97,13 @@
     from t_class
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="FindCurrentWeekAllClass" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_class
+    where
+    end_week+1 >(#{currentweek,jdbcType=INTEGER}) and (#{currentweek,jdbcType=INTEGER})>start_week-1
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_class
     where id = #{id,jdbcType=BIGINT}
@@ -109,11 +119,13 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into t_class (teacher, lesson_name, location, 
-      start_date, end_date, test_id, 
-      num, color, week)
+      start_week, end_week, test_id, 
+      start_num, color, day, 
+      creat_time, end_num)
     values (#{teacher,jdbcType=VARCHAR}, #{lessonName,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
-      #{startDate,jdbcType=DATE}, #{endDate,jdbcType=DATE}, #{testId,jdbcType=BIGINT}, 
-      #{num,jdbcType=INTEGER}, #{color,jdbcType=VARCHAR}, #{week,jdbcType=VARCHAR})
+      #{startWeek,jdbcType=INTEGER}, #{endWeek,jdbcType=INTEGER}, #{testId,jdbcType=BIGINT}, 
+      #{startNum,jdbcType=INTEGER}, #{color,jdbcType=VARCHAR}, #{day,jdbcType=VARCHAR}, 
+      #{creatTime,jdbcType=TIMESTAMP}, #{endNum,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.example.qimimi.pojo.Class">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -130,23 +142,29 @@
       <if test="location != null">
         location,
       </if>
-      <if test="startDate != null">
-        start_date,
+      <if test="startWeek != null">
+        start_week,
       </if>
-      <if test="endDate != null">
-        end_date,
+      <if test="endWeek != null">
+        end_week,
       </if>
       <if test="testId != null">
         test_id,
       </if>
-      <if test="num != null">
-        num,
+      <if test="startNum != null">
+        start_num,
       </if>
       <if test="color != null">
         color,
       </if>
-      <if test="week != null">
-        week,
+      <if test="day != null">
+        day,
+      </if>
+      <if test="creatTime != null">
+        creat_time,
+      </if>
+      <if test="endNum != null">
+        end_num,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -159,23 +177,29 @@
       <if test="location != null">
         #{location,jdbcType=VARCHAR},
       </if>
-      <if test="startDate != null">
-        #{startDate,jdbcType=DATE},
+      <if test="startWeek != null">
+        #{startWeek,jdbcType=INTEGER},
       </if>
-      <if test="endDate != null">
-        #{endDate,jdbcType=DATE},
+      <if test="endWeek != null">
+        #{endWeek,jdbcType=INTEGER},
       </if>
       <if test="testId != null">
         #{testId,jdbcType=BIGINT},
       </if>
-      <if test="num != null">
-        #{num,jdbcType=INTEGER},
+      <if test="startNum != null">
+        #{startNum,jdbcType=INTEGER},
       </if>
       <if test="color != null">
         #{color,jdbcType=VARCHAR},
       </if>
-      <if test="week != null">
-        #{week,jdbcType=VARCHAR},
+      <if test="day != null">
+        #{day,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null">
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endNum != null">
+        #{endNum,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -200,23 +224,29 @@
       <if test="record.location != null">
         location = #{record.location,jdbcType=VARCHAR},
       </if>
-      <if test="record.startDate != null">
-        start_date = #{record.startDate,jdbcType=DATE},
+      <if test="record.startWeek != null">
+        start_week = #{record.startWeek,jdbcType=INTEGER},
       </if>
-      <if test="record.endDate != null">
-        end_date = #{record.endDate,jdbcType=DATE},
+      <if test="record.endWeek != null">
+        end_week = #{record.endWeek,jdbcType=INTEGER},
       </if>
       <if test="record.testId != null">
         test_id = #{record.testId,jdbcType=BIGINT},
       </if>
-      <if test="record.num != null">
-        num = #{record.num,jdbcType=INTEGER},
+      <if test="record.startNum != null">
+        start_num = #{record.startNum,jdbcType=INTEGER},
       </if>
       <if test="record.color != null">
         color = #{record.color,jdbcType=VARCHAR},
       </if>
-      <if test="record.week != null">
-        week = #{record.week,jdbcType=VARCHAR},
+      <if test="record.day != null">
+        day = #{record.day,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creatTime != null">
+        creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endNum != null">
+        end_num = #{record.endNum,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -229,12 +259,14 @@
       teacher = #{record.teacher,jdbcType=VARCHAR},
       lesson_name = #{record.lessonName,jdbcType=VARCHAR},
       location = #{record.location,jdbcType=VARCHAR},
-      start_date = #{record.startDate,jdbcType=DATE},
-      end_date = #{record.endDate,jdbcType=DATE},
+      start_week = #{record.startWeek,jdbcType=INTEGER},
+      end_week = #{record.endWeek,jdbcType=INTEGER},
       test_id = #{record.testId,jdbcType=BIGINT},
-      num = #{record.num,jdbcType=INTEGER},
+      start_num = #{record.startNum,jdbcType=INTEGER},
       color = #{record.color,jdbcType=VARCHAR},
-      week = #{record.week,jdbcType=VARCHAR}
+      day = #{record.day,jdbcType=VARCHAR},
+      creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
+      end_num = #{record.endNum,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -251,23 +283,29 @@
       <if test="location != null">
         location = #{location,jdbcType=VARCHAR},
       </if>
-      <if test="startDate != null">
-        start_date = #{startDate,jdbcType=DATE},
+      <if test="startWeek != null">
+        start_week = #{startWeek,jdbcType=INTEGER},
       </if>
-      <if test="endDate != null">
-        end_date = #{endDate,jdbcType=DATE},
+      <if test="endWeek != null">
+        end_week = #{endWeek,jdbcType=INTEGER},
       </if>
       <if test="testId != null">
         test_id = #{testId,jdbcType=BIGINT},
       </if>
-      <if test="num != null">
-        num = #{num,jdbcType=INTEGER},
+      <if test="startNum != null">
+        start_num = #{startNum,jdbcType=INTEGER},
       </if>
       <if test="color != null">
         color = #{color,jdbcType=VARCHAR},
       </if>
-      <if test="week != null">
-        week = #{week,jdbcType=VARCHAR},
+      <if test="day != null">
+        day = #{day,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null">
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endNum != null">
+        end_num = #{endNum,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -277,12 +315,32 @@
     set teacher = #{teacher,jdbcType=VARCHAR},
       lesson_name = #{lessonName,jdbcType=VARCHAR},
       location = #{location,jdbcType=VARCHAR},
-      start_date = #{startDate,jdbcType=DATE},
-      end_date = #{endDate,jdbcType=DATE},
+      start_week = #{startWeek,jdbcType=INTEGER},
+      end_week = #{endWeek,jdbcType=INTEGER},
       test_id = #{testId,jdbcType=BIGINT},
-      num = #{num,jdbcType=INTEGER},
+      start_num = #{startNum,jdbcType=INTEGER},
       color = #{color,jdbcType=VARCHAR},
-      week = #{week,jdbcType=VARCHAR}
+      day = #{day,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      end_num = #{endNum,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <insert id="ExcelUpload" parameterType="java.util.List">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+
+
+    insert into t_class (teacher, lesson_name, location,
+    start_week, end_week, test_id,
+    start_num, color, day,
+    creat_time, end_num)
+    values
+    <foreach collection="list" item="class" index="index" separator=",">
+      (#{class.teacher,jdbcType=VARCHAR}, #{class.lessonName,jdbcType=VARCHAR}, #{class.location,jdbcType=VARCHAR},
+      #{class.startWeek,jdbcType=INTEGER}, #{class.endWeek,jdbcType=INTEGER}, #{class.testId,jdbcType=BIGINT},
+      #{class.startNum,jdbcType=INTEGER}, #{class.color,jdbcType=VARCHAR}, #{class.day,jdbcType=VARCHAR},
+      #{class.creatTime,jdbcType=TIMESTAMP}, #{class.endNum,jdbcType=INTEGER})
+    </foreach>
+  </insert>
 </mapper>
