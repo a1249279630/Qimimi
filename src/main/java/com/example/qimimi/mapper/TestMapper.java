@@ -28,5 +28,7 @@ public interface TestMapper {
 
     int updateByPrimaryKeySelective(Test record);
 
+    Integer updateClock(List<Test> tests);
+
     int updateByPrimaryKey(Test record);
 }
