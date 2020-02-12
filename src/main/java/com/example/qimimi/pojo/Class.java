@@ -27,6 +27,39 @@ public class Class {
 
     private Date creatTime;
 
+    public Class() {
+    }
+
+    @Override
+    public String toString() {
+        return "Class{" +
+                "id=" + id +
+                ", teacher='" + teacher + '\'' +
+                ", lessonName='" + lessonName + '\'' +
+                ", location='" + location + '\'' +
+                ", startWeek=" + startWeek +
+                ", endWeek=" + endWeek +
+                ", testId=" + testId +
+                ", startNum=" + startNum +
+                ", endNum=" + endNum +
+                ", color='" + color + '\'' +
+                ", day='" + day + '\'' +
+                ", creatTime=" + creatTime +
+                '}';
+    }
+
+    public Class(String teacher, String lessonName, String location, Integer startWeek, Integer endWeek, String day, Integer startNum, Integer endNum, String color, Date creatTime) {
+        this.teacher = teacher;
+        this.lessonName = lessonName;
+        this.location = location;
+        this.startWeek = startWeek;
+        this.endWeek = endWeek;
+        this.startNum = startNum;
+        this.endNum = endNum;
+        this.color = color;
+        this.day = day;
+        this.creatTime = creatTime;
+    }
 
     public Long getId() {
         return id;
