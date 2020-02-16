@@ -1,6 +1,7 @@
 package com.example.qimimi.service;
 
 import com.example.qimimi.pojo.Test;
+import com.example.qimimi.request.GetAllTestRequest;
 import com.example.qimimi.request.InsertTestRequest;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public interface TestService {
 
     List<Test> selectClockOne();
 
-    List<Test> findAllTest(Integer pageSize, Integer pageNumber);
+    List<Test> findAllTest(GetAllTestRequest getAllTestRequest);
 
     Integer deletTestByIds(List<Long> ids);
 }

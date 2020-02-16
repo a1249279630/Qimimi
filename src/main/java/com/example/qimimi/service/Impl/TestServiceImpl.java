@@ -2,6 +2,7 @@ package com.example.qimimi.service.Impl;
 
 import com.example.qimimi.dao.TestDao;
 import com.example.qimimi.pojo.Test;
+import com.example.qimimi.request.GetAllTestRequest;
 import com.example.qimimi.request.InsertTestRequest;
 import com.example.qimimi.service.TestService;
 import com.github.pagehelper.PageHelper;
@@ -107,8 +108,13 @@ public class TestServiceImpl implements TestService {
      * @date 2020/2/9
      */
     @Override
-    public List<Test> findAllTest(Integer pageSize, Integer pageNumber) {
+    public List<Test> findAllTest(GetAllTestRequest getAllTestRequest) {
         //开始分页，必须写在上面
+         Integer pageSize=7;
+
+        Integer pageNumber = getAllTestRequest.getPageNumber();
+
+        //Integer pageSize = getAllTestRequest.getPageSize();
 
         PageHelper.startPage(pageNumber,pageSize);
 

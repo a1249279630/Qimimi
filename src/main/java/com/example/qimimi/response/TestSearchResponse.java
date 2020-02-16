@@ -9,4 +9,20 @@ import java.util.List;
 public class TestSearchResponse {
     private List<Test> testList;
     private Long total;
+
+    public List<Test> getTestList() {
+        return testList;
+    }
+
+    public void setTestList(List<Test> testList) {
+        this.testList = testList;
+    }
+
+    public Long getTotal() {
+        return total;
+    }
+
+    public void setTotal(Long total) {
+        this.total = total;
+    }
 }

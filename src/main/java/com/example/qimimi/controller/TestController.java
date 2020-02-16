@@ -2,7 +2,9 @@ package com.example.qimimi.controller;
 
 import com.example.qimimi.common.JsonResult;
 import com.example.qimimi.pojo.Test;
+import com.example.qimimi.request.GetAllTestRequest;
 import com.example.qimimi.request.InsertTestRequest;
+import com.example.qimimi.response.TestSearchResponse;
 import com.example.qimimi.service.TestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +56,10 @@ public class TestController {
      * @return
      * @date 2020/2/9
      */
-    @GetMapping("all/test")
-    public JsonResult<Test> getAllUser(@RequestBody Integer pageSize, Integer pageNumber){
-        return JsonResult.ok(testService.findAllTest(pageSize,pageNumber));
+    @PostMapping("all/test")
+    public JsonResult<TestSearchResponse> getAllTest(@RequestBody GetAllTestRequest getAllTestRequest){
+
+        return JsonResult.ok(testService.findAllTest(getAllTestRequest));
     }
     
     /**
