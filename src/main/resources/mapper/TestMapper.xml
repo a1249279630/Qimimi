@@ -212,9 +212,9 @@
     <foreach collection="list" item="item" separator=";" open="" close="">
       update t_test
       <set>
-        <if test="item.clock !=null and item.clock!=''">
+
           clock=#{item.clock}
-        </if>
+
       </set>
       where id=#{item.id}
     </foreach>

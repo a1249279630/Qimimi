@@ -3,6 +3,7 @@ package com.example.qimimi.dao;
 import com.example.qimimi.mapper.TestMapper;
 import com.example.qimimi.pojo.Test;
 import com.example.qimimi.pojo.TestExample;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
+@Slf4j
 public class TestDao {
     @Autowired
     private TestMapper testMapper;

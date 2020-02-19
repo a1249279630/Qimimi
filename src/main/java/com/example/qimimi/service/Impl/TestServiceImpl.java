@@ -71,7 +71,7 @@ public class TestServiceImpl implements TestService {
      * @date 2020/2/9
      */
     @Override
-    @Scheduled(cron = "0/59 * * * * *")
+    @Scheduled(cron = "0/9 * * * * *")
     public int updataClockById() {
         List<Test> tests = testDao.selectAllTest();
         List<Test> testList = new ArrayList<>();

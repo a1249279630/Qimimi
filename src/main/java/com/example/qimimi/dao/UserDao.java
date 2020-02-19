@@ -3,6 +3,7 @@ package com.example.qimimi.dao;
 import com.example.qimimi.mapper.UserMapper;
 import com.example.qimimi.pojo.User;
 import com.example.qimimi.pojo.UserExample;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
