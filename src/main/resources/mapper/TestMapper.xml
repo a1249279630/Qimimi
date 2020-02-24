@@ -5,8 +5,9 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="location" jdbcType="VARCHAR" property="location" />
-    <result column="date" jdbcType="DATE" property="date" />
+    <result column="date" jdbcType="VARCHAR" property="date" />
     <result column="clock" jdbcType="BIGINT" property="clock" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, location, date, clock
+    id, name, location, date, clock, user_id
   </sql>
   <select id="selectByExample" parameterType="com.example.qimimi.pojo.TestExample" resultMap="BaseResultMap">
     select
@@ -104,9 +105,9 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into t_test (name, location, date, 
-      clock)
-    values (#{name,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{date,jdbcType=DATE}, 
-      #{clock,jdbcType=BIGINT})
+      clock, user_id)
+    values (#{name,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, 
+      #{clock,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.example.qimimi.pojo.Test">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -126,6 +127,9 @@
       <if test="clock != null">
         clock,
       </if>
+      <if test="userId != null">
+        user_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -135,10 +139,13 @@
         #{location,jdbcType=VARCHAR},
       </if>
       <if test="date != null">
-        #{date,jdbcType=DATE},
+        #{date,jdbcType=VARCHAR},
       </if>
       <if test="clock != null">
         #{clock,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -161,10 +168,13 @@
         location = #{record.location,jdbcType=VARCHAR},
       </if>
       <if test="record.date != null">
-        date = #{record.date,jdbcType=DATE},
+        date = #{record.date,jdbcType=VARCHAR},
       </if>
       <if test="record.clock != null">
         clock = #{record.clock,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -176,8 +186,9 @@
     set id = #{record.id,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
       location = #{record.location,jdbcType=VARCHAR},
-      date = #{record.date,jdbcType=DATE},
-      clock = #{record.clock,jdbcType=BIGINT}
+      date = #{record.date,jdbcType=VARCHAR},
+      clock = #{record.clock,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -192,10 +203,13 @@
         location = #{location,jdbcType=VARCHAR},
       </if>
       <if test="date != null">
-        date = #{date,jdbcType=DATE},
+        date = #{date,jdbcType=VARCHAR},
       </if>
       <if test="clock != null">
         clock = #{clock,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -204,8 +218,9 @@
     update t_test
     set name = #{name,jdbcType=VARCHAR},
       location = #{location,jdbcType=VARCHAR},
-      date = #{date,jdbcType=DATE},
-      clock = #{clock,jdbcType=BIGINT}
+      date = #{date,jdbcType=VARCHAR},
+      clock = #{clock,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateClock" parameterType="java.util.List">
@@ -213,7 +228,7 @@
       update t_test
       <set>
 
-          clock=#{item.clock}
+        clock=#{item.clock}
 
       </set>
       where id=#{item.id}

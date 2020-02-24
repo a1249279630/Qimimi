@@ -9,17 +9,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -40,6 +36,7 @@ public class TestServiceImpl implements TestService {
         test.setLocation(testRequest.getLocation());
         test.setDate(testRequest.getDate());
         test.setClock(insertTiemer(testRequest.getDate()));
+        test.setUserId(testRequest.getUserId());
         return testDao.insertTest(test);
     }
     /**
@@ -71,7 +68,7 @@ public class TestServiceImpl implements TestService {
      * @date 2020/2/9
      */
     @Override
-    @Scheduled(cron = "0/9 * * * * *")
+    @Scheduled(cron = "0/59 * * * * *")
     public int updataClockById() {
         List<Test> tests = testDao.selectAllTest();
         List<Test> testList = new ArrayList<>();
@@ -97,8 +94,8 @@ public class TestServiceImpl implements TestService {
      * @date 2020/2/9
      */
     @Override
-    public List<Test> selectClockOne() {
-        return testDao.selectClockOne();
+    public List<Test> selectClockOne(Long userId) {
+        return testDao.selectClockOne(userId);
     }
 
     /**
@@ -108,7 +105,7 @@ public class TestServiceImpl implements TestService {
      * @date 2020/2/9
      */
     @Override
-    public List<Test> findAllTest(GetAllTestRequest getAllTestRequest) {
+    public List<Test> findAllTest(GetAllTestRequest getAllTestRequest,Long userId) {
         //开始分页，必须写在上面
          Integer pageSize=7;
 
@@ -118,7 +115,7 @@ public class TestServiceImpl implements TestService {
 
         PageHelper.startPage(pageNumber,pageSize);
 
-        List<Test> all = testDao.selectAllTest();
+        List<Test> all = testDao.selectAllTestById(userId);
 
         PageInfo<Test> pageInfo=new PageInfo<>(all);
 
@@ -132,7 +129,7 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public Integer deletTestByIds(List<Long> ids) {
-        return testDao.deletTestByIds(ids);
+    public Integer deletTestByIds(List<Long> ids,Long userId) {
+        return testDao.deletTestByIds(ids,userId);
     }
 }

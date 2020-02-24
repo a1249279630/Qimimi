@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -53,9 +52,9 @@ public class TestDao {
      * @return
      * @date 2020/2/9
      */
-    public List<Test> selectClockOne(){
+    public List<Test> selectClockOne(Long userId){
         TestExample testExample = new TestExample();
-        testExample.createCriteria().andClockEqualTo((long)-1);
+        testExample.createCriteria().andClockEqualTo((long)-1).andUserIdEqualTo(userId);
         return testMapper.selectByExample(testExample);
     }
 
@@ -65,9 +64,15 @@ public class TestDao {
      * @return
      * @date 2020/2/9
      */
-    public Integer deletTestByIds(List<Long> ids){
+    public Integer deletTestByIds(List<Long> ids,Long userId){
         TestExample testExample = new TestExample();
-        testExample.createCriteria().andIdIn(ids);
+        testExample.createCriteria().andIdIn(ids).andUserIdEqualTo(userId);
         return testMapper.deleteByExample(testExample);
+    }
+
+    public List<Test> selectAllTestById(Long userId) {
+        TestExample testExample = new TestExample();
+        testExample.createCriteria().andUserIdEqualTo(userId);
+        return testMapper.selectByExample(testExample);
     }
 }

@@ -14,9 +14,9 @@ public interface TestService {
 
     int updataClockById();
 
-    List<Test> selectClockOne();
+    List<Test> selectClockOne(Long userId);
 
-    List<Test> findAllTest(GetAllTestRequest getAllTestRequest);
+    List<Test> findAllTest(GetAllTestRequest getAllTestRequest,Long userId);
 
-    Integer deletTestByIds(List<Long> ids);
+    Integer deletTestByIds(List<Long> ids,Long userId);
 }

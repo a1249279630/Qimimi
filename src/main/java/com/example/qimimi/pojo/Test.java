@@ -1,7 +1,5 @@
 package com.example.qimimi.pojo;
 
-import java.util.Date;
-
 public class Test {
     private Long id;
 
@@ -12,6 +10,8 @@ public class Test {
     private String date;
 
     private Long clock;
+
+    private Long userId;
 
     public Long getId() {
         return id;
@@ -42,7 +42,7 @@ public class Test {
     }
 
     public void setDate(String date) {
-        this.date = date;
+        this.date = date == null ? null : date.trim();
     }
 
     public Long getClock() {
@@ -51,5 +51,13 @@ public class Test {
 
     public void setClock(Long clock) {
         this.clock = clock;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }
